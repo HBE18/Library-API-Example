@@ -3,13 +3,8 @@ import { createBook, getBook, getBooks } from '../middlewares/business.middlewar
 
 const booksRouter = express.Router();
 
-booksRouter
-.route('/')
-.get(getBooks)
-.post(createBook);
+booksRouter.route('/').get(getBooks).post(createBook);
 
-booksRouter
-.route('/:bookId')
-.get(getBook)
+booksRouter.route('/:bookId').get(getBook);
 
 export default booksRouter;

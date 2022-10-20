@@ -8,6 +8,12 @@ export class Book {
     @Column()
     'name': string;
 
-    @Column({default:false})
-    'Borrowed' : boolean;
+    @Column({ default: false })
+    'Borrowed': boolean;
+
+    @Column('float', { default: 0.0 })
+    'Rating': number;
+
+    @Column({ default: 0 })
+    'RatedTimes': number;
 }

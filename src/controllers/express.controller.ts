@@ -1,6 +1,6 @@
 import { expressConfig } from './../constants';
 import express from 'express';
-import userRouter from '../routes/userRoute';
+import userRouter from '../routes/user.route';
 import booksRouter from '../routes/books.route';
 
 const cors = require('cors');
