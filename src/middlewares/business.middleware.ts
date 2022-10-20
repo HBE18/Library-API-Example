@@ -57,7 +57,7 @@ export async function getBooks(
             Books: books,
         });
     } else {
-        res.status(404).json({ error: 'No book found'});
+        res.status(404).json({ error: 'No book found' });
     }
 }
 
@@ -85,4 +85,38 @@ export async function createBook(
     newBook.name = req.body.name;
     AppDataSource.manager.save(newBook);
     res.sendStatus(204);
+}
+
+export async function borrowBook(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+) {
+    const userID: number = Number(req.params.userId);
+    const bookID: number = Number(req.params.bookId);
+    if (!userID || !bookID) {
+        res.sendStatus(500);
+    }
+    await AppDataSource.query('UPDATE public.User SET books = array_append(books,$1) WHERE id=$2;',[bookID,userID]);
+    res.sendStatus(204);
+}
+
+export async function checkBookStatus(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+) {
+    const bookID: number = Number(req.params.bookId);
+    const bookTable = AppDataSource.manager.getRepository(Book);
+    const book = await bookTable.findOneBy({ id: bookID });
+    if (book) {
+        if (book.Borrowed) {
+            res.status(400).json({
+                error: 'This book is borrowed, cannot re-borrow before it is returned',
+            });
+        }
+        next();
+    } else {
+        res.status(400).json({ error: 'Given book ID is not found' });
+    }
 }
