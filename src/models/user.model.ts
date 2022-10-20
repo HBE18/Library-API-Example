@@ -5,6 +5,7 @@ export class User {
     @PrimaryGeneratedColumn()
     "id": number
 
+    // Didn't check the uniqueness of name since there are lots of duplicate names in real world
     @Column()
     "name": string
 

@@ -1,19 +1,17 @@
 import express from 'express';
-import { createUser, getUser, getUsers } from '../middlewares/business.middleware';
+import { createUser, getUser, getUsers, validate } from '../middlewares/business.middleware';
 import actionRouter from './action.route';
+import { body } from 'express-validator';
 
-
-const userRouter = express.Router({mergeParams:true});
-
-userRouter
-.route("/")
-.get(getUsers)
-.post(createUser);
+const userRouter = express.Router({ mergeParams: true });
 
 userRouter
-.route("/:userId")
-.get(getUser);
+    .route('/')
+    .get(getUsers)
+    .post(body('name').matches(/^[\w].{1,30}$/), validate, createUser);
 
-userRouter.use("/:userId/",actionRouter);
+userRouter.route('/:userId').get(getUser);
+
+userRouter.use('/:userId/', actionRouter);
 
 export default userRouter;

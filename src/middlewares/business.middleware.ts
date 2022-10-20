@@ -2,6 +2,8 @@ import express from 'express';
 import { User } from '../models/user.model';
 import { Book } from '../models/book.model';
 import { AppDataSource } from '../db/db.controller';
+import { validationResult } from 'express-validator';
+
 
 export async function createUser(
     req: express.Request,
@@ -137,7 +139,9 @@ export async function checkBookStatus(
                 error: 'This book is borrowed, cannot re-borrow before it is returned',
             });
         }
-        next();
+        else {
+            next();
+        }
     } else {
         res.status(400).json({ error: 'Given book ID is not found' });
     }
@@ -202,4 +206,14 @@ export async function returnBook(
         .where('id=:id', { id: bookID })
         .execute();
     res.sendStatus(204);
+}
+
+export async function validate(req: express.Request, res: express.Response, next: express.NextFunction) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errors.array() });
+        }
+        else {
+            next();
+        }
 }
