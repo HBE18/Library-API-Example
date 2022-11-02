@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -p . ",
     "initialize": "npm i",
-    "start:prod": "npm run initialize && npm run build && node out/app.js ",
+    "start": "npm run initialize && npm run build && node out/app.js ",
     "start:dev": "npm run build && node out/app.js",
     "test": "jest"
   },
