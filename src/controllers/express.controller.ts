@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config({override:true});
 import { expressConfig } from './../constants';
 import express from 'express';
 import userRouter from '../routes/user.route';
@@ -22,7 +24,7 @@ export async function initalizeExpress() {
     const port: number = expressConfig.port | 3000;
     const msg = `The app is running on http://localhost:${port}`;
 
-    app.get('/', async (req, res) => {
+    app.get('/', async (req:express.Request, res:express.Response) => {
         // Basic route for server online check
         res.status(200).send(msg);
     });

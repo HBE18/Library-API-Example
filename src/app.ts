@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { initalizeExpress } from './controllers/express.controller';
 import "reflect-metadata";
 import { AppDataSource } from './db/db.controller';

@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 5432,
     username: 'postgres',
     password: '123456',
