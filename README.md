@@ -18,7 +18,7 @@ Use **`npm install`** command.
 
 <br>
 
-> Database was used in a container and the example connection settings are provided, change them according to your database configuration in [db.conteller.ts](/src/db/db.controller.ts).
+> Database was used in a container and the example connection settings are provided, change them according to your database configuration in [db.controller.ts](/src/db/db.controller.ts).
 
 <br>
 
